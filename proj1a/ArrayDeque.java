@@ -2,8 +2,8 @@
  * and then change it to T type
  */
 
-public class ArrayDeque {
-    private int[] items;
+public class ArrayDeque <T>{
+    private T[] items;
     private int size;
     private int nextLast;
     private int nextFirst;
@@ -11,25 +11,25 @@ public class ArrayDeque {
     //The default constructor
     public ArrayDeque(){
         size = 0;
-        items = new int[100];
+        items = (T[])new Object[100];
         nextFirst = 50;
         nextLast = 51;
     }
 
     public ArrayDeque(ArrayDeque other){
         size = other.items.length;
-        items = new int[other.items.length];
+        items = (T[])new Object[other.items.length];
         System.arraycopy(other.items,0,items,0,size);
         nextFirst = other.nextFirst;
         nextLast = other.nextLast;
     }
     //only used for testing code
-    public ArrayDeque(int capacity){
-        size = 0;
-        items = new int[capacity];
-        nextFirst = capacity-2;
-        nextLast = capacity-1;
-    }
+  //  public ArrayDeque(int capacity){
+   //     size = 0;
+    //    items = (T[])new Object[capacity];
+   //     nextFirst = capacity-2;
+   //     nextLast = capacity-1;
+    //}
 
     /** Several methods (add/remove/get/isEmpty/etc.) */
     public int size(){
@@ -60,7 +60,7 @@ public class ArrayDeque {
 
 
     //Add methods: add first:
-    public void addFirst(int newItem){
+    public void addFirst(T newItem){
         if(isFull()){
             reCapacity(2*items.length);
         }
@@ -73,7 +73,7 @@ public class ArrayDeque {
         size++;
     }
     //Add methods: add last:
-    public void addLast(int newItem){
+    public void addLast(T newItem){
         if(isFull()){
             reCapacity(2*size);
         }
@@ -87,7 +87,7 @@ public class ArrayDeque {
     }
 
     //Get methods: get first
-    public int getFirst(){
+    public T getFirst(){
         if(firstTouchTail()){
             return items[0];
         }
@@ -95,14 +95,14 @@ public class ArrayDeque {
     }
 
     //Get methods: get last
-    public int getLast(){
+    public T getLast(){
         if(lastTouchHead()){
             return items[items.length-1];
         }
         return items[nextLast - 1];
     }
 
-    public int get(int index){
+    public T get(int index){
         int backLength = items.length-realFirstIndex();
         if(realFirstIndex()<realLastIndex()
                 ||index<=backLength-1){
@@ -113,36 +113,36 @@ public class ArrayDeque {
     }
 
     //Remove methods: remove last
-    public int removeLast(){
-        int removedItem;
+    public T removeLast(){
+        T removedItem;
         size = size-1;
         if(lastTouchHead()){
             nextLast = items.length;//move it to the right of the tail/ items[items.length-1]
         }
         nextLast = nextLast - 1;
         removedItem = items[nextLast];
-        items[nextLast] = 0;//change it to null for T type
+        items[nextLast] = null;//change it to null for T type
         return removedItem;
     }
 
-    public int removeFirst(){
-        int removedItem;
+    public T removeFirst(){
+        T removedItem;
         size = size -1;
         if(firstTouchTail()){
             nextFirst = -1;//move it to the left of the head/ items[0]
         }
         nextFirst = nextFirst+1;
         removedItem = items[nextFirst];
-        items[nextFirst] = 0;//change it to null for T type
+        items[nextFirst] = null;//change it to null for T type
         return removedItem;
     }
 
     /** Helper methods */
 
     //Alter the size of the list
-    public void reCapacity(int newCapacity){//change it to private once bug fixed
+    private void reCapacity(int newCapacity){//change it to private once bug fixed
         if(realFirstIndex()<realLastIndex()){
-            int[] CopyCat = new int[newCapacity];
+            T[] CopyCat = (T[]) new Object[newCapacity];
             System.arraycopy(items,realFirstIndex(),CopyCat,realFirstIndex(),size());
             items = CopyCat;
         }
@@ -150,11 +150,12 @@ public class ArrayDeque {
         {
             int frontLength = realLastIndex()+1;
             int backLength = items.length-realFirstIndex();
-            int[] CopyCat = new int[newCapacity];
+            T[] CopyCat = (T[]) new Object[newCapacity];
             System.arraycopy(items,0,CopyCat,0,frontLength);
             System.arraycopy(items,realFirstIndex(),CopyCat,newCapacity-backLength, backLength);
             items = CopyCat;
-            nextFirst = newCapacity-backLength -1;//There are more space in the middle, so it is okay to minus 1
+            nextFirst = newCapacity-backLength -1;
+            //There are more space in the middle, so it is okay to minus 1
         }
 
     }

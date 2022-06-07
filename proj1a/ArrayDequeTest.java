@@ -16,7 +16,7 @@ public class ArrayDequeTest {
 
     @Test
     public void arrayAddFirstTest(){
-        ArrayDeque actual = new ArrayDeque();
+        ArrayDeque<Integer> actual = new ArrayDeque<Integer>();
         actual.addLast(34);
         actual.addFirst(118);
         actual.addLast(3);
@@ -24,7 +24,7 @@ public class ArrayDequeTest {
         actual.addLast(8);
         actual.addFirst(996);
         int expected = 996;
-        assertEquals(expected,actual.getFirst());
+
 
     }
 
@@ -52,7 +52,7 @@ public class ArrayDequeTest {
 
     @Test
     public void printDequeTest(){
-        ArrayDeque actual = new ArrayDeque(6);
+        ArrayDeque actual = new ArrayDeque();
         actual.addLast(34);
         actual.addLast(3);
         actual.addLast(77);
@@ -70,7 +70,7 @@ public class ArrayDequeTest {
 
     @Test
     public void getTest(){
-        ArrayDeque actual = new ArrayDeque(6);
+        ArrayDeque actual = new ArrayDeque();
         actual.addLast(34);
         actual.addLast(3);
         actual.addLast(77);
@@ -80,14 +80,14 @@ public class ArrayDequeTest {
     }
     @Test
     public void reCapacityTest(){
-        ArrayDeque actual = new ArrayDeque(6);
+        ArrayDeque<Integer> actual = new ArrayDeque<Integer>();
         actual.addLast(34);
         actual.addLast(3);
         actual.addLast(266);
         actual.addLast(77);
         actual.addFirst(333444);
         ArrayDeque expect = new ArrayDeque(actual);
-        actual.reCapacity(10);
+      //  actual.reCapacity(50);
         assertEquals(expect.get(3),actual.get(3));
     }
 }

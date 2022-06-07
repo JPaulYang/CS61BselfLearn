@@ -101,7 +101,7 @@ public class LinkedListDeque <T>{
      * node of the removed one
      */
 
-    public TNode removeFirst(){
+    public T removeFirst(){
         if(isEmpty()){
             return null;
         }
@@ -110,13 +110,13 @@ public class LinkedListDeque <T>{
         sentinelF.next = temp;
         size -= 1;
         searchPointer = sentinelF.next;
-        return this.sentinelF.next;
+        return (T) this.sentinelF.next.item;
     }
 
     /**Remove the last node, temp is the previous node of the removed one
      * @author Jiannan
      */
-    public TNode removeLast(){
+    public T removeLast(){
         if(isEmpty()){
             return null;
         }
@@ -125,7 +125,7 @@ public class LinkedListDeque <T>{
         sentinelL.prev = temp;
         size -= 1;
         searchPointer = sentinelF.next;
-        return this.sentinelL.prev;
+        return (T) this.sentinelL.prev.item;
     }
 
 
