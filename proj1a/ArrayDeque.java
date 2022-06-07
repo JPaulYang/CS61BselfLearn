@@ -11,9 +11,9 @@ public class ArrayDeque <T> {
     //The default constructor
     public ArrayDeque() {
         size = 0;
-        items = (T[]) new Object[100];
-        nextFirst = 50;
-        nextLast = 51;
+        items = (T[]) new Object[10];
+        nextFirst = 5;
+        nextLast = 6;
     }
 
 
@@ -24,7 +24,7 @@ public class ArrayDeque <T> {
     }
 
     private boolean isFull() {
-        if (size == items.length){
+        if (size >= items.length){
             return true;
         }
         return false;
@@ -52,10 +52,11 @@ public class ArrayDeque <T> {
         }
         items[nextFirst] = newItem;
         if (firstTouchHead()) {
-            nextFirst = size -1;
+            nextFirst = items.length -1;
         } else {
-            nextFirst -= 1;
+            nextFirst = nextFirst - 1;
         }
+
         size++;
     }
     //Add methods: add last:
@@ -64,11 +65,12 @@ public class ArrayDeque <T> {
             reCapacity(2 * size);
         }
         items[nextLast] = newItem;
-        if (lastTouchTail()) {// Making it Circular
+        if ( lastTouchTail() ) {// Making it Circular
             nextLast = 0;
         } else {
             nextLast += 1;
         }
+
         size ++;
     }
 
@@ -77,8 +79,8 @@ public class ArrayDeque <T> {
     public T get(int index) {
         int backLength = items.length - realFirstIndex();
         if (realFirstIndex() < realLastIndex()
-                ||index <= backLength - 1) {
-            return items[realFirstIndex()+index];
+                || index <= backLength - 1) {
+            return items[realFirstIndex() + index];
         } else {
             return items[index - backLength];
         }
@@ -89,11 +91,13 @@ public class ArrayDeque <T> {
         T removedItem;
         size = size - 1;
         if (lastTouchHead()) {
-            nextLast = items.length;//move it to the right of the tail/ items[items.length-1]
+            nextLast = items.length;
+            //move it to the right of the tail/ items[items.length-1]
         }
         nextLast = nextLast - 1;
         removedItem = items[nextLast];
-        items[nextLast] = null;//change it to null for T type
+        items[nextLast] = null;
+        //change it to null for T type
         return removedItem;
     }
 
@@ -115,14 +119,16 @@ public class ArrayDeque <T> {
     private void reCapacity(int newCapacity) {//change it to private once bug fixed
         if (realFirstIndex() < realLastIndex()) {
             T[] CopyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items , realFirstIndex() , CopyCat , realFirstIndex(),size());
+            System.arraycopy(items, realFirstIndex(),
+                    CopyCat , realFirstIndex(),size());
             items = CopyCat;
         } else {
             int frontLength = realLastIndex() + 1;
             int backLength = items.length - realFirstIndex();
             T[] CopyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items , 0 , CopyCat , 0,frontLength);
-            System.arraycopy(items , realFirstIndex() , CopyCat , newCapacity - backLength , backLength);
+            System.arraycopy(items, 0, CopyCat, 0,frontLength);
+            System.arraycopy(items, realFirstIndex(),
+                    CopyCat, newCapacity - backLength, backLength);
             items = CopyCat;
             nextFirst = newCapacity - backLength - 1;
             //There are more space in the middle, so it is okay to minus 1
@@ -167,15 +173,13 @@ public class ArrayDeque <T> {
     }
 
     private int realFirstIndex() {
-        if (firstTouchTail())
-        {
+        if (firstTouchTail()) {
             return 0;
         }
         return nextFirst+1;
     }
     private int realLastIndex() {
-        if (lastTouchHead())
-        {
+        if (lastTouchHead()) {
             return items.length - 1;
         }
         return nextLast - 1;
