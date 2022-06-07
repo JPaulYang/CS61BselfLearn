@@ -2,56 +2,42 @@
  * and then change it to T type
  */
 
-public class ArrayDeque <T>{
+public class ArrayDeque <T> {
     private T[] items;
     private int size;
     private int nextLast;
     private int nextFirst;
 
     //The default constructor
-    public ArrayDeque(){
+    public ArrayDeque() {
         size = 0;
-        items = (T[])new Object[100];
+        items = (T[]) new Object[100];
         nextFirst = 50;
         nextLast = 51;
     }
 
-    public ArrayDeque(ArrayDeque other){
-        size = other.items.length;
-        items = (T[])new Object[other.items.length];
-        System.arraycopy(other.items,0,items,0,size);
-        nextFirst = other.nextFirst;
-        nextLast = other.nextLast;
-    }
-    //only used for testing code
-  //  public ArrayDeque(int capacity){
-   //     size = 0;
-    //    items = (T[])new Object[capacity];
-   //     nextFirst = capacity-2;
-   //     nextLast = capacity-1;
-    //}
+
 
     /** Several methods (add/remove/get/isEmpty/etc.) */
-    public int size(){
+    public int size() {
         return size;
     }
 
-    private boolean isFull(){
-        if(size == items.length){
+    private boolean isFull() {
+        if (size == items.length){
             return true;
         }
         return false;
     }
 
-    public void printDeque(){
+    public void printDeque() {
 
         int i = realFirstIndex();
         while(i!=realLastIndex()+1) {
             System.out.print(items[i] + " ");
-            if(i == items.length-1){
+            if (i == items.length-1) {
                 i = 0;
-            }
-            else {
+            } else {
                 i++;
             }
         }
@@ -60,63 +46,49 @@ public class ArrayDeque <T>{
 
 
     //Add methods: add first:
-    public void addFirst(T newItem){
-        if(isFull()){
-            reCapacity(2*items.length);
+    public void addFirst(T newItem) {
+        if (isFull()) {
+            reCapacity(2 * items.length);
         }
         items[nextFirst] = newItem;
-        if(firstTouchHead()){
+        if (firstTouchHead()) {
             nextFirst = size -1;
-        }else{
+        } else {
             nextFirst -= 1;
         }
         size++;
     }
     //Add methods: add last:
-    public void addLast(T newItem){
-        if(isFull()){
-            reCapacity(2*size);
+    public void addLast(T newItem) {
+        if (isFull()) {
+            reCapacity(2 * size);
         }
         items[nextLast] = newItem;
-        if(lastTouchTail()){// Making it Circular
+        if (lastTouchTail()) {// Making it Circular
             nextLast = 0;
-        }else{
+        } else {
             nextLast += 1;
         }
         size ++;
     }
 
-    //Get methods: get first
-    public T getFirst(){
-        if(firstTouchTail()){
-            return items[0];
-        }
-        return items[nextFirst + 1];
-    }
+    //get methods
 
-    //Get methods: get last
-    public T getLast(){
-        if(lastTouchHead()){
-            return items[items.length-1];
-        }
-        return items[nextLast - 1];
-    }
-
-    public T get(int index){
-        int backLength = items.length-realFirstIndex();
-        if(realFirstIndex()<realLastIndex()
-                ||index<=backLength-1){
+    public T get(int index) {
+        int backLength = items.length - realFirstIndex();
+        if (realFirstIndex() < realLastIndex()
+                ||index <= backLength - 1) {
             return items[realFirstIndex()+index];
-        }else{
+        } else {
             return items[index - backLength];
         }
     }
 
     //Remove methods: remove last
-    public T removeLast(){
+    public T removeLast() {
         T removedItem;
-        size = size-1;
-        if(lastTouchHead()){
+        size = size - 1;
+        if (lastTouchHead()) {
             nextLast = items.length;//move it to the right of the tail/ items[items.length-1]
         }
         nextLast = nextLast - 1;
@@ -125,13 +97,13 @@ public class ArrayDeque <T>{
         return removedItem;
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
         T removedItem;
-        size = size -1;
-        if(firstTouchTail()){
+        size = size - 1;
+        if (firstTouchTail()) {
             nextFirst = -1;//move it to the left of the head/ items[0]
         }
-        nextFirst = nextFirst+1;
+        nextFirst = nextFirst + 1;
         removedItem = items[nextFirst];
         items[nextFirst] = null;//change it to null for T type
         return removedItem;
@@ -140,46 +112,40 @@ public class ArrayDeque <T>{
     /** Helper methods */
 
     //Alter the size of the list
-    private void reCapacity(int newCapacity){//change it to private once bug fixed
-        if(realFirstIndex()<realLastIndex()){
+    private void reCapacity(int newCapacity) {//change it to private once bug fixed
+        if (realFirstIndex() < realLastIndex()) {
             T[] CopyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items,realFirstIndex(),CopyCat,realFirstIndex(),size());
+            System.arraycopy(items , realFirstIndex() , CopyCat , realFirstIndex(),size());
             items = CopyCat;
-        }
-        else
-        {
-            int frontLength = realLastIndex()+1;
-            int backLength = items.length-realFirstIndex();
+        } else {
+            int frontLength = realLastIndex() + 1;
+            int backLength = items.length - realFirstIndex();
             T[] CopyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items,0,CopyCat,0,frontLength);
-            System.arraycopy(items,realFirstIndex(),CopyCat,newCapacity-backLength, backLength);
+            System.arraycopy(items , 0 , CopyCat , 0,frontLength);
+            System.arraycopy(items , realFirstIndex() , CopyCat , newCapacity - backLength , backLength);
             items = CopyCat;
-            nextFirst = newCapacity-backLength -1;
+            nextFirst = newCapacity - backLength - 1;
             //There are more space in the middle, so it is okay to minus 1
         }
 
     }
-    //int[] CopyCatFront = new int[realLastIndex()+1];
-    //int[] CopyCatBack = new int[items.length-realFirstIndex()];
-    //System.arraycopy(items,0,CopyCatFront,0,realLastIndex()+1);
-    //System.arraycopy(items,realFirstIndex(),CopyCatBack,0, items.length-realFirstIndex());
 
-    public boolean isEmpty(){
-        if(size == 0){
+    public boolean isEmpty() {
+        if (size == 0) {
             return true;
         }
         return false;
     }
 
     //nextFirst/nextLast reach the head of the array
-    private boolean firstTouchHead(){
-        if(nextFirst == 0){
+    private boolean firstTouchHead() {
+        if (nextFirst == 0) {
             return true;
         }
         return false;
     }
-    private boolean lastTouchHead(){
-        if(nextFirst == 0){
+    private boolean lastTouchHead() {
+        if (nextFirst == 0) {
             return true;
         }
         return false;
@@ -187,31 +153,31 @@ public class ArrayDeque <T>{
 
     //nextFirst/nextLast reach the last box in the array
 
-    private boolean firstTouchTail(){
-        if(nextFirst == items.length-1){
+    private boolean firstTouchTail() {
+        if (nextFirst == items.length - 1) {
             return true;
         }
         return false;
     }
-    private boolean lastTouchTail(){
-        if(nextLast == items.length-1){
+    private boolean lastTouchTail() {
+        if (nextLast == items.length - 1) {
             return true;
         }
         return false;
     }
 
-    private int realFirstIndex(){
-        if(firstTouchTail())
+    private int realFirstIndex() {
+        if (firstTouchTail())
         {
             return 0;
         }
         return nextFirst+1;
     }
-    private int realLastIndex(){
-        if(lastTouchHead())
+    private int realLastIndex() {
+        if (lastTouchHead())
         {
-            return items.length-1;
+            return items.length - 1;
         }
-        return nextLast-1;
+        return nextLast - 1;
     }
 }
