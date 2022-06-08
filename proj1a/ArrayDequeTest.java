@@ -122,19 +122,32 @@ public class ArrayDequeTest {
     @Test //get test
     public void getTest() {
         ArrayDeque<Integer> act = new ArrayDeque<>();
-        act.addFirst(1);
+        act.addLast(0);
+        act.removeFirst();
         act.addFirst(2);
-        act.addFirst(13);
-        act.addFirst(14);
-        act.addFirst(19);
-        act.addFirst(15);
-        act.addFirst(16);
+        act.addLast(3);
+        act.removeFirst();
+        act.get(0);
+        act.removeFirst();
+        act.addLast(7);
+        act.addFirst(8);
+        act.addFirst(9);
+        act.removeFirst();
+        act.removeLast();
+        act.addFirst(12);
+        act.get(0);
+        act.get(0);
+        act.get(1);
+        act.addLast(16);
         act.addFirst(17);
         act.addFirst(18);
-        act.addLast(89);
-        int actual = act.get(9);
-        int expect = 89;
-        assertEquals(expect, actual);
+        act.addFirst(19);
+        act.addFirst(20);
+        act.addLast(21);
+        act.addFirst(22);
+        int actual = act.get(0);
+        int expect = 22;
+        assertEquals(expect,actual);
     }
 
 

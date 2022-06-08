@@ -65,7 +65,7 @@ public class ArrayDeque<T> {
             reCapacity(2 * size);
         }
         items[nextLast] = newItem;
-        if (lastTouchTail()) { // Making it Circular
+        if (lastTouchTail() && isFull()) { // Making it Circular
             nextLast = 0;
         } else {
             nextLast += 1;
@@ -77,7 +77,7 @@ public class ArrayDeque<T> {
     //get methods
 
     public T get(int index) {
-        if (index < 0 ||index > size){
+        if (index < 0 || index > size) {
             return null;
         }
         int backLength = items.length - realFirstIndex();
@@ -135,23 +135,41 @@ public class ArrayDeque<T> {
     //Alter the size of the list
     private void reCapacity(int newCapacity) { 
     //change it to private once bug fixed
-        if (realFirstIndex() < realLastIndex()) {
-            T[] copyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items, realFirstIndex(),
-                    copyCat, realFirstIndex(), size());
-            items = copyCat;
-        } else {
-            int frontLength = realLastIndex() + 1;
-            int backLength = items.length - realFirstIndex();
+        if (realLastIndex()<realFirstIndex()) {
+            int frontLength = nextLast;
+            int backLength = items.length - nextFirst;
             T[] copyCat = (T[]) new Object[newCapacity];
             System.arraycopy(items, 0, copyCat, 0, frontLength);
             System.arraycopy(items, realFirstIndex(),
                     copyCat, newCapacity - backLength, backLength);
             items = copyCat;
-            nextFirst = newCapacity - backLength - 1;
-            //There are more space in the middle, so it is okay to minus 1
+            nextFirst = newCapacity - backLength; // - 1;
+        } else if (nextFirst <= nextLast && !firstTouchTail() && !lastTouchHead()) {
+            T[] copyCat = (T[]) new Object[newCapacity];
+            System.arraycopy(items, realFirstIndex(),
+                    copyCat, realFirstIndex(), size);
+            items = copyCat;
+        } else if (firstTouchTail() && !isFull()) {
+            T[] copyCat = (T[]) new Object[newCapacity];
+            System.arraycopy(items, realFirstIndex(),
+                    copyCat, realFirstIndex(), size);
+            items = copyCat;
+            nextFirst = newCapacity - 1;
+        } else if (lastTouchHead() && !isFull()){
+            int backLength = items.length - nextFirst;
+            T[] copyCat = (T[]) new Object[newCapacity];
+            System.arraycopy(items, realFirstIndex(),
+                    copyCat, realFirstIndex(), size);
+            items = copyCat;
+            nextFirst = newCapacity - backLength;
+        } else {
+            T[] copyCat = (T[]) new Object[newCapacity];
+            System.arraycopy(items, realFirstIndex(),
+                    copyCat, realFirstIndex(), size);
+            items = copyCat;
+            nextFirst = newCapacity - 1;
+            nextLast = size;
         }
-
     }
 
     public boolean isEmpty() {
@@ -203,7 +221,7 @@ public class ArrayDeque<T> {
         return nextLast - 1;
     }
 
-    private int getCapacity(){
+    private int getCapacity() {
         return items.length;
     }
 }
