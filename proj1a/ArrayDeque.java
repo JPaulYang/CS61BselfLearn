@@ -65,7 +65,7 @@ public class ArrayDeque<T> {
             reCapacity(2 * size);
         }
         items[nextLast] = newItem;
-        if (lastTouchTail() && isFull()) { // Making it Circular
+        if (lastTouchTail()) { // Making it Circular
             nextLast = 0;
         } else {
             nextLast += 1;
@@ -135,42 +135,15 @@ public class ArrayDeque<T> {
     //Alter the size of the list
     private void reCapacity(int newCapacity) { 
     //change it to private once bug fixed
-        if (realLastIndex()<realFirstIndex()) {
-            int frontLength = nextLast;
-            int backLength = items.length - nextFirst;
-            T[] copyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items, 0, copyCat, 0, frontLength);
-            System.arraycopy(items, realFirstIndex(),
-                    copyCat, newCapacity - backLength, backLength);
-            items = copyCat;
-            nextFirst = newCapacity - backLength; // - 1;
-        } else if (nextFirst <= nextLast && !firstTouchTail() && !lastTouchHead()) {
-            T[] copyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items, realFirstIndex(),
-                    copyCat, realFirstIndex(), size);
-            items = copyCat;
-        } else if (firstTouchTail() && !isFull()) {
-            T[] copyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items, realFirstIndex(),
-                    copyCat, realFirstIndex(), size);
-            items = copyCat;
-            nextFirst = newCapacity - 1;
-        } else if (lastTouchHead() && !isFull()){
-            int backLength = items.length - nextFirst;
-            T[] copyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items, realFirstIndex(),
-                    copyCat, realFirstIndex(), size);
-            items = copyCat;
-            nextFirst = newCapacity - backLength;
-        } else {
-            T[] copyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items, realFirstIndex(),
-                    copyCat, realFirstIndex(), size);
-            items = copyCat;
-            nextFirst = newCapacity - 1;
-            nextLast = size;
+        T[] copyCat = (T[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            copyCat[i] = get(i);
         }
+        items = copyCat;
+        nextFirst = newCapacity -1;
+        nextLast = size;
     }
+
 
     public boolean isEmpty() {
         if (size == 0) {
@@ -221,7 +194,7 @@ public class ArrayDeque<T> {
         return nextLast - 1;
     }
 
-    private int getCapacity() {
+    public int getCapacity() {
         return items.length;
     }
 }

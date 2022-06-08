@@ -26,7 +26,6 @@ public class ArrayDequeTest {
         actual.addFirst("zaoshanghao");
         actual.addFirst("shazigege");
         actual.addFirst("nishishei");
-
         actual.addFirst("nishsishei");
         actual.addFirst("nishishei");
         actual.addFirst("nisahishei");
@@ -107,7 +106,7 @@ public class ArrayDequeTest {
         actual.addLast("jungle");
         actual.addFirst("forest");
         int expect2 = 16;
-     //   assertEquals(expect2,actual.capacity());
+        assertEquals(expect2,actual.getCapacity());
         actual.removeFirst();
         actual.removeFirst();
         actual.removeFirst();
@@ -116,7 +115,7 @@ public class ArrayDequeTest {
         actual.removeFirst();
         actual.removeFirst();
         int expect3 = 8;
-      //  assertEquals(expect3,actual.capacity());
+        assertEquals(expect3,actual.getCapacity());
     }
 
     @Test //get test
