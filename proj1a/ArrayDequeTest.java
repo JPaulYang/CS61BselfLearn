@@ -38,4 +38,73 @@ public class ArrayDequeTest {
         String expected = "shaz2igege";
         assertEquals(expected,actual.get(actual.size()-1));
     }
+
+    @Test
+    public void sizeTest(){
+        ArrayDeque<Integer> actual = new ArrayDeque<>();
+        actual.addLast(33);
+        int expect1 = 1;
+        assertEquals(expect1, actual.size());
+        actual.removeFirst();
+        actual.removeFirst();
+        int expect2 = 0;
+        assertEquals(expect2, actual.size());
+    }
+    @Test
+    public void removeFirstTest(){
+        ArrayDeque<String> actual = new ArrayDeque<>();
+        actual.addLast("jinhsiyue");
+        actual.addFirst("jinhsiyu==e");
+        actual.addLast("jinhsiyue");
+        String act = actual.removeFirst();
+        String expect = "jinhsiyu==e";
+        assertEquals(expect,act);
+        String expect2 = "jinhsiyue";
+        String act2 = actual.removeFirst();
+        assertEquals(expect2,act2);
+    }
+
+    @Test
+    public void removeLastTest(){
+        ArrayDeque<String> actual = new ArrayDeque<>();
+        actual.addLast("jinhsiyue");
+        actual.addFirst("jinhsiyu==e");
+        actual.addLast("jinhsiyue");
+        String act = actual.removeLast();
+        String expect = "jinhsiyue";
+        assertEquals(expect,act);
+        actual.removeLast();
+        actual.removeLast();
+        String act2 = actual.removeLast();
+        String expect2 = null;
+        assertEquals(expect2, act2);
+    }
+
+    @Test //Shrink the capacity when the size is reduced to less than 1/2 of the capacity
+    public void sizeMemoryTest(){
+        ArrayDeque<String> actual = new ArrayDeque<>();
+        int expect1 = 8;
+        assertEquals(expect1,actual.capacity());
+        actual.addFirst("shanghai");
+        actual.addFirst("shagged");
+        actual.addFirst("heathenish");
+        actual.addFirst("garnisheeing");
+        actual.addFirst("heathenish");
+        actual.addFirst("fishy");
+        actual.addFirst("garnisheeing");
+        actual.addLast("jungle");
+        actual.addFirst("forest");
+        int expect2 = 16;
+        assertEquals(expect2,actual.capacity());
+        actual.removeFirst();
+        actual.removeFirst();
+        actual.removeFirst();
+        actual.removeFirst();
+        actual.removeFirst();
+        actual.removeFirst();
+        actual.removeFirst();
+        int expect3 = 8;
+        assertEquals(expect3,actual.capacity());
+    }
+
 }

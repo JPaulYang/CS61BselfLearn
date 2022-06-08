@@ -11,9 +11,9 @@ public class ArrayDeque <T> {
     //The default constructor
     public ArrayDeque() {
         size = 0;
-        items = (T[]) new Object[10];
-        nextFirst = 5;
-        nextLast = 6;
+        items = (T[]) new Object[8];
+        nextFirst = 3;
+        nextLast = 4;
     }
 
 
@@ -88,6 +88,9 @@ public class ArrayDeque <T> {
 
     //Remove methods: remove last
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         T removedItem;
         size = size - 1;
         if (lastTouchHead()) {
@@ -97,11 +100,18 @@ public class ArrayDeque <T> {
         nextLast = nextLast - 1;
         removedItem = items[nextLast];
         items[nextLast] = null;
+        //shrink the total capacity
+        if(size < items.length/2 && items.length/2 >= 8) {
+            reCapacity(items.length/2);
+        }
         //change it to null for T type
         return removedItem;
     }
 
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         T removedItem;
         size = size - 1;
         if (firstTouchTail()) {
@@ -110,6 +120,10 @@ public class ArrayDeque <T> {
         nextFirst = nextFirst + 1;
         removedItem = items[nextFirst];
         items[nextFirst] = null;//change it to null for T type
+        //shrink the total capacity
+        if(size < items.length/2 && items.length/2 >= 8) {
+            reCapacity(items.length/2);
+        }
         return removedItem;
     }
 
@@ -183,5 +197,9 @@ public class ArrayDeque <T> {
             return items.length - 1;
         }
         return nextLast - 1;
+    }
+    /**临时工*/
+    public int capacity(){
+        return items.length;
     }
 }

@@ -39,8 +39,8 @@ public class LinkedListDeque <T> {
     //Default constructor to construct an empty Deque
     public LinkedListDeque() {
         size = 0;
-        sentinelF = new TNode(null,"shabi",null);
-        sentinelL = new TNode(null,"niubi",null);
+        sentinelF = new TNode(null,"Front sentinel",null);
+        sentinelL = new TNode(null,"Last sentinel",null);
         sentinelF.next = sentinelL;
         sentinelL.prev = sentinelF;
         searchPointer = sentinelF.next;
@@ -94,11 +94,12 @@ public class LinkedListDeque <T> {
             return null;
         }
         TNode temp = sentinelF.next.next;
+        T removedItem = (T) sentinelF.next.item;
         temp.prev = sentinelF;
         sentinelF.next = temp;
         size -= 1;
         searchPointer = sentinelF.next;
-        return (T) this.sentinelF.next.item;
+        return removedItem;
     }
 
     /**Remove the last node, temp is
@@ -110,11 +111,12 @@ public class LinkedListDeque <T> {
             return null;
         }
         TNode temp = sentinelL.prev.prev;
+        T removedItem = (T) sentinelL.prev.item;
         temp.next = sentinelL;
         sentinelL.prev = temp;
         size -= 1;
         searchPointer = sentinelF.next;
-        return (T) this.sentinelL.prev.item;
+        return removedItem;
     }
 
 
@@ -165,6 +167,5 @@ public class LinkedListDeque <T> {
         }
             searchPointer = searchPointer.next;
             return getRecursive(index - 1);
-
     }
 }
