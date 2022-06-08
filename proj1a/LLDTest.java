@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class LLDTest {
     @Test
-    public void removeFirstTest(){
+    public void removeFirstTest() {
         LinkedListDeque<String> actual = new LinkedListDeque<String>();
         actual.addFirst("Zao");
         actual.addFirst("shang");
@@ -14,10 +14,10 @@ public class LLDTest {
         actual.addFirst("!");
         String x = actual.removeFirst();
         String expected = "!";
-        assertEquals(expected,x);
+        assertEquals(expected, x);
     }
     @Test
-    public void removeLastTest(){
+    public void removeLastTest() {
         LinkedListDeque<String> actual = new LinkedListDeque<String>();
         actual.addFirst("Zao");
         actual.addLast("shang");
@@ -28,11 +28,11 @@ public class LLDTest {
         actual.addFirst("!");
         String x = actual.removeLast();
         String expected = "shi";
-        assertEquals(expected,x);
+        assertEquals(expected, x);
     }
 
     @Test
-    public void sizeTest(){
+    public void sizeTest() {
         LinkedListDeque<String> actual = new LinkedListDeque<String>();
         actual.addFirst("Zao");
         actual.addFirst("shang");
@@ -50,7 +50,7 @@ public class LLDTest {
     }
 
     @Test
-    public void isEmptyTest(){
+    public void isEmptyTest() {
         LinkedListDeque<String> actual = new LinkedListDeque<>();
         actual.addFirst("Zao");
         actual.addFirst("shang");
@@ -59,11 +59,11 @@ public class LLDTest {
         actual.removeFirst();
         actual.removeLast();
         boolean expect2 = true;
-        assertEquals(expect2,actual.isEmpty());
+        assertEquals(expect2, actual.isEmpty());
     }
 
     @Test
-    public void printDequeTest(){
+    public void printDequeTest() {
         LinkedListDeque<String> actual = new LinkedListDeque<>();
         actual.addLast("Zao");
         actual.addLast("shang");

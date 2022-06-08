@@ -8,7 +8,7 @@
  * 5. doubly linked typeList by generics
  */
 
-public class LinkedListDeque <T> {
+public class LinkedListDeque<T> {
     private int size;
     private TNode sentinelF;
     private TNode sentinelL;
@@ -22,7 +22,7 @@ public class LinkedListDeque <T> {
         private T item;
         private TNode prev;
         //parameter constructor
-        public TNode(TNode prev,T item,TNode next) {
+        public TNode(TNode prev, T item, TNode next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
@@ -39,8 +39,8 @@ public class LinkedListDeque <T> {
     //Default constructor to construct an empty Deque
     public LinkedListDeque() {
         size = 0;
-        sentinelF = new TNode(null,"Front sentinel",null);
-        sentinelL = new TNode(null,"Last sentinel",null);
+        sentinelF = new TNode(null, "Front sentinel", null);
+        sentinelL = new TNode(null, "Last sentinel", null);
         sentinelF.next = sentinelL;
         sentinelL.prev = sentinelF;
         searchPointer = sentinelF.next;
@@ -66,10 +66,10 @@ public class LinkedListDeque <T> {
         //sentinelF.next is the first meaningful node
         TNode temp = sentinelF.next;
         //middle is the node we want to insert between the front sentinel and the first node
-        TNode middle = new TNode(sentinelF,x,temp);
+        TNode middle = new TNode(sentinelF, x, temp);
         sentinelF.next = middle;
         temp.prev = middle;
-        size+=1;
+        size += 1;
         searchPointer = sentinelF.next;
     }
     /**Add a node after the last node
@@ -78,10 +78,10 @@ public class LinkedListDeque <T> {
      */
     public void addLast(T x) {
         TNode temp = sentinelL.prev;
-        TNode middle = new TNode(temp,x,sentinelL);
+        TNode middle = new TNode(temp, x, sentinelL);
         sentinelL.prev = middle;
         temp.next = middle;
-        size +=1;
+        size += 1;
         searchPointer = sentinelF.next;
     }
 
@@ -123,7 +123,7 @@ public class LinkedListDeque <T> {
     //print the list
     public void printDeque() {
         TNode temp = sentinelF;
-        while(temp != sentinelL.prev) {
+        while (temp != sentinelL.prev) {
             System.out.print(temp.next.item + " ");
             temp = temp.next;
         }
@@ -137,13 +137,13 @@ public class LinkedListDeque <T> {
 
     //Get the index-th item in the list (Iterative)
     public T get(int index) {
-        if (isEmpty() || index < 0 || index > size){
+        if (isEmpty() || index < 0 || index > size) {
             return null;
             //change it to null for a generic type
         }
         TNode searchPinter = sentinelF;
         int i = 0;
-        while(i <= index) {
+        while (i <= index) {
             searchPinter = searchPinter.next;
             i++;
         }
@@ -158,14 +158,14 @@ public class LinkedListDeque <T> {
     public T getRecursive(int index) {
         if (isEmpty() || index < 0 || index > size) {
             searchPointer = sentinelF.next;
-            return null;//change it to null
+            return null;    //change it to null
         }
         if (index == 0) {
             TNode temp = searchPointer;
             searchPointer = sentinelF.next;
             return (T) temp.item;
         }
-            searchPointer = searchPointer.next;
-            return getRecursive(index - 1);
+        searchPointer = searchPointer.next;
+        return getRecursive(index - 1);
     }
 }

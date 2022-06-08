@@ -18,7 +18,7 @@ public class ArrayDequeTest {
         actual.addLast("shaz2igege");
 
         String expected = "shaznigege";
-        assertEquals(expected,actual.get(0));
+        assertEquals(expected, actual.get(0));
     }
     @Test
     public void addLastTest() {
@@ -36,11 +36,11 @@ public class ArrayDequeTest {
         actual.addFirst("123");
         actual.addFirst("1111");
         String expected = "shaz2igege";
-        assertEquals(expected,actual.get(actual.size()-1));
+        assertEquals(expected, actual.get(actual.size() - 1));
     }
 
     @Test
-    public void sizeTest(){
+    public void sizeTest() {
         ArrayDeque<Integer> actual = new ArrayDeque<>();
         actual.addLast(33);
         int expect1 = 1;
@@ -51,28 +51,28 @@ public class ArrayDequeTest {
         assertEquals(expect2, actual.size());
     }
     @Test
-    public void removeFirstTest(){
+    public void removeFirstTest() {
         ArrayDeque<String> actual = new ArrayDeque<>();
         actual.addLast("jinhsiyue");
         actual.addFirst("jinhsiyu==e");
         actual.addLast("jinhsiyue");
         String act = actual.removeFirst();
         String expect = "jinhsiyu==e";
-        assertEquals(expect,act);
+        assertEquals(expect, act);
         String expect2 = "jinhsiyue";
         String act2 = actual.removeFirst();
-        assertEquals(expect2,act2);
+        assertEquals(expect2, act2);
     }
 
     @Test
-    public void removeLastTest(){
+    public void removeLastTest() {
         ArrayDeque<String> actual = new ArrayDeque<>();
         actual.addLast("jinhsiyue");
         actual.addFirst("jinhsiyu==e");
         actual.addLast("jinhsiyue");
         String act = actual.removeLast();
         String expect = "jinhsiyue";
-        assertEquals(expect,act);
+        assertEquals(expect, act);
         actual.removeLast();
         actual.removeLast();
         String act2 = actual.removeLast();
@@ -81,7 +81,7 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void removeLastIntegerTest(){
+    public void removeLastIntegerTest() {
         ArrayDeque<Integer> act = new ArrayDeque<>();
         act.addFirst(0);
         act.addFirst(1);
@@ -92,7 +92,7 @@ public class ArrayDequeTest {
     }
 
     @Test //Shrink the capacity when the size is reduced to less than 1/2 of the capacity
-    public void sizeMemoryTest(){
+    public void sizeMemoryTest() {
         ArrayDeque<String> actual = new ArrayDeque<>();
         int expect1 = 8;
         /** change the private capacity() to public before running this test */
@@ -120,7 +120,7 @@ public class ArrayDequeTest {
     }
 
     @Test //get test
-    public void getTest(){
+    public void getTest() {
         ArrayDeque<Integer> act = new ArrayDeque<>();
         act.addFirst(1);
         act.addFirst(2);
@@ -134,7 +134,7 @@ public class ArrayDequeTest {
         act.addLast(89);
         int actual = act.get(9);
         int expect = 89;
-        assertEquals(expect,actual);
+        assertEquals(expect, actual);
     }
 
 }
