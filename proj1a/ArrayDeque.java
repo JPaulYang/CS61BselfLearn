@@ -77,6 +77,9 @@ public class ArrayDeque<T> {
     //get methods
 
     public T get(int index) {
+        if (index < 0 ||index > size){
+            return null;
+        }
         int backLength = items.length - realFirstIndex();
         if (realFirstIndex() <= realLastIndex() || index <= backLength - 1) {
             return  (T) items[realFirstIndex() + index];
@@ -141,7 +144,7 @@ public class ArrayDeque<T> {
             int frontLength = realLastIndex() + 1;
             int backLength = items.length - realFirstIndex();
             T[] copyCat = (T[]) new Object[newCapacity];
-            System.arraycopy(items, 0, copyCat, 0,frontLength);
+            System.arraycopy(items, 0, copyCat, 0, frontLength);
             System.arraycopy(items, realFirstIndex(),
                     copyCat, newCapacity - backLength, backLength);
             items = copyCat;
@@ -198,5 +201,9 @@ public class ArrayDeque<T> {
             return items.length - 1;
         }
         return nextLast - 1;
+    }
+
+    private int getCapacity(){
+        return items.length;
     }
 }

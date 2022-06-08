@@ -55,7 +55,7 @@ public class LLDTest {
         actual.addFirst("Zao");
         actual.addFirst("shang");
         boolean expect = false;
-        assertEquals(expect,actual.isEmpty());
+        assertEquals(expect, actual.isEmpty());
         actual.removeFirst();
         actual.removeLast();
         boolean expect2 = true;
