@@ -106,7 +106,7 @@ public class ArrayDequeTest {
         actual.addLast("jungle");
         actual.addFirst("forest");
         int expect2 = 16;
-        assertEquals(expect2,actual.getCapacity());
+        assertEquals(expect2, actual.getCapacity());
         actual.removeFirst();
         actual.removeFirst();
         actual.removeFirst();
@@ -115,7 +115,7 @@ public class ArrayDequeTest {
         actual.removeFirst();
         actual.removeFirst();
         int expect3 = 8;
-        assertEquals(expect3,actual.getCapacity());
+        assertEquals(expect3, actual.getCapacity());
     }
 
     @Test //get test
@@ -146,7 +146,7 @@ public class ArrayDequeTest {
         act.addFirst(22);
         int actual = act.get(0);
         int expect = 22;
-        assertEquals(expect,actual);
+        assertEquals(expect, actual);
     }
 
 

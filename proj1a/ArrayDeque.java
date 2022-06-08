@@ -140,7 +140,7 @@ public class ArrayDeque<T> {
             copyCat[i] = get(i);
         }
         items = copyCat;
-        nextFirst = newCapacity -1;
+        nextFirst = newCapacity - 1;
         nextLast = size;
     }
 
@@ -192,9 +192,5 @@ public class ArrayDeque<T> {
             return items.length - 1;
         }
         return nextLast - 1;
-    }
-
-    public int getCapacity() {
-        return items.length;
-    }
+    } 
 }
