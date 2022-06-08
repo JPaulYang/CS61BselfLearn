@@ -78,11 +78,10 @@ public class ArrayDeque <T> {
 
     public T get(int index) {
         int backLength = items.length - realFirstIndex();
-        if (realFirstIndex() < realLastIndex()
-                || index <= backLength - 1) {
-            return items[realFirstIndex() + index];
+        if (realFirstIndex() <= realLastIndex() || index <= backLength - 1) {
+            return  (T) items[realFirstIndex() + index];
         } else {
-            return items[index - backLength];
+            return (T) items[index - backLength];
         }
     }
 
@@ -165,7 +164,7 @@ public class ArrayDeque <T> {
         return false;
     }
     private boolean lastTouchHead() {
-        if (nextFirst == 0) {
+        if (nextLast == 0) {
             return true;
         }
         return false;
@@ -197,9 +196,5 @@ public class ArrayDeque <T> {
             return items.length - 1;
         }
         return nextLast - 1;
-    }
-    /**临时工*/
-    public int capacity(){
-        return items.length;
     }
 }
