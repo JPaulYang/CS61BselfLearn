@@ -11,11 +11,11 @@ public class NBody{
 	//read the Planets in the text file
 	public static Planet[] readPlanets(String textFile){
 		In in = new In(textFile);
-		int size = 5;		//5 planets in total
-		Planet[] planets = new Planet[size];
+		int numberOfPlanets = in.readInt();//?? planets in total
+		
+		Planet[] planets = new Planet[numberOfPlanets];
 		int i = 0;			//index
 
-		int numberOfPlanets = in.readInt();
 		double radius = in.readDouble();
 		double xxPos;
 		double yyPos;
@@ -29,7 +29,7 @@ public class NBody{
 		 * Therefore, we need to restrict the index i to be less than size(5).
 		 * @author Jiannan Yang
 		 */
-		while(!in.isEmpty() &&i<size){
+		while(!in.isEmpty() &&i<numberOfPlanets){
 			xxPos = in.readDouble();
 			yyPos = in.readDouble();
 			xxVel = in.readDouble();
