@@ -192,5 +192,9 @@ public class ArrayDeque<T> {
             return items.length - 1;
         }
         return nextLast - 1;
-    } 
+    }
+
+    public int getCapacity() {
+        return items.length;
+    }
 }
