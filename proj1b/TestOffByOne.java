@@ -14,10 +14,10 @@ public class TestOffByOne {
     public void offByOneTest() {
         char x = 'x';
         char y = 'y';
-        assertFalse(offByOne.equalChars(x, y));
+        assertTrue(offByOne.equalChars(x, y));
         char z = 'Z';
         char z2 = 'Z';
-        assertTrue(offByOne.equalChars(z, z2));
+        assertFalse(offByOne.equalChars(z, z2));
     }
 
 }
