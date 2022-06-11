@@ -17,27 +17,22 @@ public class TestPalindrome {
 
     @Test (timeout = 1000)
     public void isPalindromeTest() {
-        boolean actual = palindrome.isPalindrome("aSa");
+        boolean actual = palindrome.isPalindrome("@aSkSa@");
         //actual is a palindrome
         assertTrue(actual);
         boolean actual2 = palindrome.isPalindrome("catcatcat");
         //actual2 is not a palindrome
         assertFalse(actual2);
+        boolean actual1 = palindrome.isPalindrome("a");
+        assertTrue(actual1);
+        boolean actual3 = palindrome.isPalindrome("");
+        assertTrue(actual3);
+        boolean actual4 = palindrome.isPalindrome(null);
+        //actual is a palindrome
+        assertTrue(actual4);
     }
 
-    @Test
-    public void isPalindromeSingleTest() {
-        boolean actual = palindrome.isPalindrome("a");
-        //actual is a palindrome
-        assertTrue(actual);
-    }
 
-    @Test
-    public void isPalindromeNullTest() {
-        boolean actual = palindrome.isPalindrome(null);
-        //actual is a palindrome
-        assertTrue(actual);
-    }
 
     @Test
     public void isPalindromeTest2() {

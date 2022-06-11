@@ -12,12 +12,18 @@ public class TestOffByOne {
 
     @Test
     public void offByOneTest() {
-        char x = 'x';
-        char y = 'y';
-        assertTrue(offByOne.equalChars(x, y));
-        char z = 'Z';
-        char z2 = 'Z';
-        assertFalse(offByOne.equalChars(z, z2));
+        char a = 'x';
+        char a2 = 'y';
+        assertTrue(offByOne.equalChars(a, a2));
+        char b = 'Z';
+        char b2 = 'Z';
+        assertFalse(offByOne.equalChars(b, b2));
+        char c = 'A';
+        char c2 = 'b';
+        assertFalse(offByOne.equalChars(c, c2));
+        char d = '%';
+        char d2 = '&';
+        assertTrue(offByOne.equalChars(d, d2));
     }
 
 }
