@@ -17,38 +17,68 @@ public class TestPalindrome {
 
     @Test (timeout = 1000)
     public void isPalindromeTest() {
-        boolean actual = palindrome.isPalindrome("@aSkSa@");
+        boolean actual = palindrome.isPalindrome("aSa");
         //actual is a palindrome
         assertTrue(actual);
         boolean actual2 = palindrome.isPalindrome("catcatcat");
         //actual2 is not a palindrome
         assertFalse(actual2);
-        boolean actual1 = palindrome.isPalindrome("a");
-        assertTrue(actual1);
-        boolean actual3 = palindrome.isPalindrome("");
+        boolean actual3 = palindrome.isPalindrome("asA");
+        //actual2 is not a palindrome
+        assertFalse(actual3);
+        boolean actual4 = palindrome.isPalindrome("%#### A ? A ####%");
+        //actual2 is not a palindrome
+        assertTrue(actual4);
+        boolean actual5 = palindrome.isPalindrome("%### A ? A *##%");
+        //actual2 is not a palindrome
+        assertFalse(actual5);
+    }
+
+    @Test (timeout = 1000)
+    public void isPalindromeSingleTest() {
+        boolean actual = palindrome.isPalindrome("a");
+        //actual is a palindrome
+        assertTrue(actual);
+        boolean actual2 = palindrome.isPalindrome("%");
+        //actual is a palindrome
+        assertTrue(actual2);
+        boolean actual3 = palindrome.isPalindrome("A");
+        //actual is a palindrome
         assertTrue(actual3);
-        boolean actual4 = palindrome.isPalindrome(null);
+        boolean actual4 = palindrome.isPalindrome("");
         //actual is a palindrome
         assertTrue(actual4);
     }
 
-
+    @Test (timeout = 1000)
+    public void isPalindromeNullTest() {
+        String wd = null;
+        boolean actual = palindrome.isPalindrome(wd);
+        //actual is a palindrome
+        assertTrue(actual);
+    }
 
     @Test
     public void isPalindromeTest2() {
         CharacterComparator cc = new OffByOne();
-        boolean actual = palindrome.isPalindrome("ackbb", cc);
+        boolean actual = palindrome.isPalindrome("&ackbb%", cc);
         boolean actual2 = palindrome.isPalindrome("az", cc);
         assertTrue(actual);
         assertFalse(actual2);
-        boolean actual3 = palindrome.isPalindrome("asdfgj", cc);
+        boolean actual3 = palindrome.isPalindrome("ABab", cc);
         assertFalse(actual3);
         //one char test
         boolean actual4 = palindrome.isPalindrome("a", cc);
-        //actual is a palindrome
         assertTrue(actual4);
-        boolean actual5 = palindrome.isPalindrome(null, cc);
-        //actual is a palindrome
+        boolean actual5 = palindrome.isPalindrome("A", cc);
         assertTrue(actual5);
+        boolean actual6 = palindrome.isPalindrome(")", cc);
+        assertTrue(actual6);
+        boolean actual7 = palindrome.isPalindrome("", cc);
+        assertTrue(actual7);
+        //null test
+
+        boolean actual8 = palindrome.isPalindrome(null, cc);
+        assertTrue(actual8);
     }
 }
