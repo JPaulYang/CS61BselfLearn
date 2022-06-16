@@ -32,9 +32,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         rb[last] = x;
         fillCount += 1;
         if (last == capacity - 1) {
-                last = 0;
+            last = 0;
         } else {
-                last += 1;
+            last += 1;
         }
     }
 
@@ -45,18 +45,18 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * Exceptions covered Monday.
      */
     public T dequeue() {
-            if (isEmpty()) {
-                throw new RuntimeException("Ring Buffer Underflow");
-            }
-            T removedItem = rb[first];
-            rb[first] = null;
-            if (first == capacity - 1) {
-                first = 0;
-            } else {
-                first += 1;
-            }
-            fillCount -= 1;
-            return removedItem;
+        if (isEmpty()) {
+            throw new RuntimeException("Ring Buffer Underflow");
+        }
+        T removedItem = rb[first];
+        rb[first] = null;
+        if (first == capacity - 1) {
+            first = 0;
+        } else {
+            first += 1;
+        }
+        fillCount -= 1;
+        return removedItem;
     }
 
     /**
